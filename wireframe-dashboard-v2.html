@@ -1,0 +1,1067 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review Intelligence Dashboard - Wireframe v2</title>
+    <style>
+      :root {
+        --bg: #f8fafc;
+        --surface: #ffffff;
+        --surface-soft: #f1f5f9;
+        --line: #e2e8f0;
+        --text: #0f172a;
+        --muted: #64748b;
+        --primary: #7c3aed;
+        --success: #16a34a;
+        --danger: #ef4444;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .shell {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .brand-strip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(90deg, #5b21b6, #7c3aed);
+        color: #fff;
+        border-radius: 14px;
+        padding: 12px 14px;
+        margin-bottom: 12px;
+      }
+
+      .brand-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.2);
+        display: grid;
+        place-items: center;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+      }
+
+      .brand-name {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .brand-meta {
+        margin: 2px 0 0;
+        opacity: 0.9;
+        font-size: 12px;
+      }
+
+      .status-pill {
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .title {
+        margin: 0;
+        font-size: 26px;
+      }
+
+      .subtitle {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .controls {
+        display: flex;
+        gap: 8px;
+      }
+
+      .chip,
+      .btn {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 9px 12px;
+        font-size: 13px;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      .chip {
+        min-width: 150px;
+      }
+
+      .select-wrap {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .chip-select {
+        border-color: #c4b5fd;
+        color: #4c1d95;
+      }
+
+      .btn {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+        font-weight: 600;
+      }
+
+      .chip.active {
+        background: #f3e8ff;
+        border-color: #ddd6fe;
+        color: #5b21b6;
+      }
+
+      .top-note {
+        margin: 2px 0 12px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+        box-shadow: 0 12px 30px -18px rgba(15, 23, 42, 0.3);
+      }
+
+      .kpi-label {
+        color: var(--muted);
+        font-size: 12px;
+        margin: 0;
+      }
+
+      .kpi-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .kpi-icon {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        font-size: 18px;
+        color: var(--primary);
+        opacity: 0.18;
+      }
+
+      .kpi-value {
+        margin: 8px 0 0;
+        font-size: 28px;
+        font-weight: 700;
+      }
+
+      .kpi-value.accent {
+        color: var(--primary);
+      }
+
+      .kpi-negative {
+        border-color: #fecaca;
+        background: #fff7f7;
+      }
+
+      .trend {
+        margin-top: 7px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .trend.up {
+        color: #b91c1c;
+      }
+
+      .trend.down {
+        color: var(--success);
+      }
+
+      .mini-bars {
+        margin-top: 8px;
+        display: grid;
+        gap: 5px;
+      }
+
+      .mini-row {
+        display: grid;
+        grid-template-columns: 18px 1fr 26px;
+        gap: 6px;
+        align-items: center;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .mini-track {
+        height: 6px;
+        border-radius: 999px;
+        background: #ede9fe;
+        overflow: hidden;
+      }
+
+      .mini-fill {
+        height: 6px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #a78bfa, var(--primary));
+      }
+
+      .spark {
+        margin-bottom: 12px;
+      }
+
+      .spark .subtitle {
+        margin-top: 2px;
+      }
+
+      .spark svg {
+        width: 100%;
+        height: 120px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: 0 12px 30px -18px rgba(15, 23, 42, 0.3);
+      }
+
+      .spark text {
+        fill: var(--muted);
+        font-size: 11px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 2fr 1.2fr;
+        gap: 12px;
+      }
+
+      .section-title {
+        margin: 0 0 10px;
+        font-size: 16px;
+      }
+
+      .table-wrap {
+        overflow: auto;
+      }
+
+      table {
+        width: 100%;
+        min-width: 760px;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 14px 10px;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 13px;
+        vertical-align: top;
+      }
+
+      th {
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      tbody tr:nth-child(even) {
+        background: #fcfcff;
+      }
+
+      tbody tr:hover {
+        background: #f5f3ff;
+      }
+
+      .platform-cell {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+      }
+
+      .platform-logo {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .platform-logo.amazon {
+        background: #ff9900;
+      }
+
+      .platform-logo.flipkart {
+        background: #2874f0;
+      }
+
+      .platform-logo.shopify {
+        background: #16a34a;
+      }
+
+      .platform-logo.google {
+        background: #ea4335;
+      }
+
+      .product-name {
+        margin: 0;
+        font-weight: 700;
+      }
+
+      .product-sku {
+        margin: 3px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .review-text {
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .rating {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .stars {
+        font-size: 13px;
+        letter-spacing: 1px;
+      }
+
+      .rating-text {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .rating.low .stars {
+        color: #ef4444;
+      }
+
+      .rating.medium .stars {
+        color: #f59e0b;
+      }
+
+      .rating.high .stars {
+        color: #16a34a;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .critical {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+
+      .high {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .medium {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+
+      .side-stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      .list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .list li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 9px 0;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 14px;
+      }
+
+      .topic-filter {
+        width: 100%;
+        border: 1px solid transparent;
+        background: transparent;
+        border-radius: 10px;
+        padding: 8px;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .topic-filter:hover {
+        background: #faf5ff;
+        border-color: #e9d5ff;
+      }
+
+      .topic-filter.active {
+        background: #f3e8ff;
+        border-color: #ddd6fe;
+      }
+
+      .topic-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+      }
+
+      .topic-name {
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .topic-meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+      }
+
+      .sentiment-pill {
+        border-radius: 999px;
+        padding: 2px 8px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .sentiment-pill.negative {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+
+      .sentiment-pill.mixed {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .sentiment-pill.neutral {
+        background: #e2e8f0;
+        color: #334155;
+      }
+
+      .topic-count {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .progress {
+        background: var(--surface-soft);
+        border-radius: 999px;
+        height: 8px;
+        overflow: hidden;
+      }
+
+      .bar {
+        height: 8px;
+        background: linear-gradient(90deg, #a78bfa, var(--primary));
+      }
+
+      @media (max-width: 1100px) {
+        .kpis {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .top {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="brand-strip">
+        <div class="brand-left">
+          <div class="logo">FS</div>
+          <div>
+            <p class="brand-name">Filesure Commerce Intelligence</p>
+            <p class="brand-meta">Cross-platform review monitoring and response wireframe</p>
+          </div>
+        </div>
+        <div class="status-pill">Live Monitoring Mode</div>
+      </div>
+
+      <header class="top">
+        <div>
+          <h1 class="title">Voice of Customer Control Tower</h1>
+          <p class="subtitle">Wireframe v2 - Ecommerce review intelligence across all channels</p>
+        </div>
+        <div class="controls">
+          <label class="select-wrap" for="rangeSelect">
+            Time:
+            <select class="chip chip-select active" id="rangeSelect" aria-label="Select time range">
+              <option value="Last 7 days">Last 7 days</option>
+              <option value="Last 30 days" selected>Last 30 days</option>
+              <option value="Last 90 days">Last 90 days</option>
+            </select>
+          </label>
+          <label class="select-wrap" for="platformSelect">
+            Platform:
+            <select class="chip chip-select" id="platformSelect" aria-label="Select platform">
+              <option value="all" selected>All Platforms</option>
+              <option value="amazon">Amazon</option>
+              <option value="flipkart">Flipkart</option>
+              <option value="shopify">Shopify</option>
+              <option value="google">Google</option>
+            </select>
+          </label>
+          <button class="btn" id="reportBtn" type="button">Create Executive Report</button>
+        </div>
+      </header>
+      <p class="top-note" id="activeFilterText">Showing all topics across all platforms for Last 30 days.</p>
+
+      <section class="kpis">
+        <article class="card kpi-card">
+          <span class="kpi-icon">💬</span>
+          <p class="kpi-label">Total Reviews</p>
+          <p class="kpi-value accent" id="kpiTotal">18,420</p>
+          <p class="trend down" id="kpiTotalTrend">+12% from last week</p>
+        </article>
+        <article class="card kpi-card">
+          <span class="kpi-icon">⚙️</span>
+          <p class="kpi-label">Auto-Triaged</p>
+          <p class="kpi-value" id="kpiAuto">15,987</p>
+          <p class="trend down" id="kpiAutoTrend">+4.6% automation efficiency</p>
+        </article>
+        <article class="card kpi-card kpi-negative">
+          <span class="kpi-icon">⚠️</span>
+          <p class="kpi-label">Negative Reviews</p>
+          <p class="kpi-value" id="kpiNegative">2,036</p>
+          <p class="trend up" id="kpiNegativeTrend">+6.2% from last week</p>
+        </article>
+        <article class="card kpi-card">
+          <span class="kpi-icon">⭐</span>
+          <p class="kpi-label">Avg Rating</p>
+          <p class="kpi-value" id="kpiAvg">4.1</p>
+          <p class="trend down" id="kpiAvgTrend">Improved by +0.2</p>
+          <div class="mini-bars">
+            <div class="mini-row"><span>5★</span><span class="mini-track"><span class="mini-fill" style="width: 62%"></span></span><span>62%</span></div>
+            <div class="mini-row"><span>4★</span><span class="mini-track"><span class="mini-fill" style="width: 19%"></span></span><span>19%</span></div>
+            <div class="mini-row"><span>3★</span><span class="mini-track"><span class="mini-fill" style="width: 9%"></span></span><span>9%</span></div>
+            <div class="mini-row"><span>2★</span><span class="mini-track"><span class="mini-fill" style="width: 6%"></span></span><span>6%</span></div>
+            <div class="mini-row"><span>1★</span><span class="mini-track"><span class="mini-fill" style="width: 4%"></span></span><span>4%</span></div>
+          </div>
+        </article>
+        <article class="card kpi-card">
+          <span class="kpi-icon">⏱️</span>
+          <p class="kpi-label">SLA Compliance</p>
+          <p class="kpi-value" id="kpiSla">89%</p>
+          <p class="trend up" id="kpiSlaTrend">-3% below target (92%)</p>
+        </article>
+      </section>
+
+      <section class="spark">
+        <h2 class="section-title" id="trendTitle">Sentiment Over Last 30 Days</h2>
+        <p class="subtitle">Positive and negative review trend at a glance</p>
+        <svg viewBox="0 0 980 120" aria-label="Sentiment trend chart">
+          <line x1="40" y1="20" x2="40" y2="95" stroke="#e2e8f0" />
+          <line x1="40" y1="95" x2="940" y2="95" stroke="#e2e8f0" />
+          <polyline id="positiveLine" fill="none" stroke="#16a34a" stroke-width="3" points="60,62 190,58 320,54 450,49 580,45 710,39 840,34" />
+          <polyline id="negativeLine" fill="none" stroke="#ef4444" stroke-width="3" points="60,74 190,69 320,66 450,70 580,63 710,67 840,60" />
+          <text x="60" y="112">Mon</text><text x="190" y="112">Tue</text><text x="320" y="112">Wed</text>
+          <text x="450" y="112">Thu</text><text x="580" y="112">Fri</text><text x="710" y="112">Sat</text><text x="840" y="112">Sun</text>
+          <text x="855" y="34" fill="#16a34a">Positive</text>
+          <text x="855" y="60" fill="#ef4444">Negative</text>
+        </svg>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2 class="section-title">Priority Queue (Needs Action)</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Source</th>
+                  <th>Product</th>
+                  <th>Theme</th>
+                  <th>Review</th>
+                  <th>Rating</th>
+                  <th>Priority</th>
+                  <th>Owner</th>
+                  <th>Recommended Next Step</th>
+                </tr>
+              </thead>
+              <tbody id="reviewRows">
+                <tr data-topic="quality" data-platform="amazon" data-ranges="Last 7 days,Last 30 days,Last 90 days">
+                  <td>
+                    <span class="platform-cell"><span class="platform-logo amazon">a</span>Amazon</span>
+                  </td>
+                  <td>
+                    <p class="product-name">Hydration Bottle</p>
+                    <p class="product-sku">SKU-1001</p>
+                  </td>
+                  <td>Leakage Defect</td>
+                  <td class="review-text">Cap leaks after one use and packaging arrived damaged.</td>
+                  <td>
+                    <div class="rating low">
+                      <span class="stars">⭐☆☆☆☆</span>
+                      <span class="rating-text">1.0 / 5 (Amazon)</span>
+                    </div>
+                  </td>
+                  <td><span class="badge critical">Critical</span></td>
+                  <td>Quality Team</td>
+                  <td>Batch-level defect check + replacement outreach</td>
+                </tr>
+                <tr data-topic="packaging" data-platform="flipkart" data-ranges="Last 30 days,Last 90 days">
+                  <td>
+                    <span class="platform-cell"><span class="platform-logo flipkart">f</span>Flipkart</span>
+                  </td>
+                  <td>
+                    <p class="product-name">Yoga Mat Pro</p>
+                    <p class="product-sku">SKU-2004</p>
+                  </td>
+                  <td>Poor Packaging</td>
+                  <td class="review-text">Box torn on arrival and edges looked crushed.</td>
+                  <td>
+                    <div class="rating low">
+                      <span class="stars">⭐⭐☆☆☆</span>
+                      <span class="rating-text">2.0 / 5 (Flipkart)</span>
+                    </div>
+                  </td>
+                  <td><span class="badge high">High</span></td>
+                  <td>Ops Team</td>
+                  <td>Revise packaging SOP and vendor escalation</td>
+                </tr>
+                <tr data-topic="delivery" data-platform="shopify" data-ranges="Last 7 days,Last 30 days,Last 90 days">
+                  <td>
+                    <span class="platform-cell"><span class="platform-logo shopify">s</span>Shopify</span>
+                  </td>
+                  <td>
+                    <p class="product-name">Protein Shaker</p>
+                    <p class="product-sku">SKU-3011</p>
+                  </td>
+                  <td>Late Delivery</td>
+                  <td class="review-text">Delivered four days late and no proactive status updates.</td>
+                  <td>
+                    <div class="rating medium">
+                      <span class="stars">⭐⭐⭐☆☆</span>
+                      <span class="rating-text">3.0 / 5 (Shopify)</span>
+                    </div>
+                  </td>
+                  <td><span class="badge medium">Medium</span></td>
+                  <td>Logistics</td>
+                  <td>Carrier performance review + proactive ETA update</td>
+                </tr>
+                <tr data-topic="support" data-platform="google" data-ranges="Last 30 days,Last 90 days">
+                  <td>
+                    <span class="platform-cell"><span class="platform-logo google">g</span>Google</span>
+                  </td>
+                  <td>
+                    <p class="product-name">Travel Mug Plus</p>
+                    <p class="product-sku">SKU-4482</p>
+                  </td>
+                  <td>Support Delay</td>
+                  <td class="review-text">Support took 3 days to answer and issue is still open.</td>
+                  <td>
+                    <div class="rating low">
+                      <span class="stars">⭐⭐☆☆☆</span>
+                      <span class="rating-text">2.0 / 5 (Google)</span>
+                    </div>
+                  </td>
+                  <td><span class="badge high">High</span></td>
+                  <td>CX Team</td>
+                  <td>Escalate ticket and enforce 24-hour response SLA</td>
+                </tr>
+                <tr data-topic="delivery" data-platform="flipkart" data-ranges="Last 7 days,Last 30 days">
+                  <td>
+                    <span class="platform-cell"><span class="platform-logo flipkart">f</span>Flipkart</span>
+                  </td>
+                  <td>
+                    <p class="product-name">Running Shoes</p>
+                    <p class="product-sku">SKU-5521</p>
+                  </td>
+                  <td>Late Delivery</td>
+                  <td class="review-text">Order delayed by 3 days with no update.</td>
+                  <td>
+                    <div class="rating low">
+                      <span class="stars">⭐⭐☆☆☆</span>
+                      <span class="rating-text">2.0 / 5 (Flipkart)</span>
+                    </div>
+                  </td>
+                  <td><span class="badge high">High</span></td>
+                  <td>Logistics</td>
+                  <td>Check courier delays</td>
+                </tr>
+                <tr data-topic="support" data-platform="google" data-ranges="Last 7 days,Last 30 days">
+                  <td>
+                    <span class="platform-cell"><span class="platform-logo google">g</span>Google</span>
+                  </td>
+                  <td>
+                    <p class="product-name">Smart Bottle</p>
+                    <p class="product-sku">SKU-7788</p>
+                  </td>
+                  <td>Support Delay</td>
+                  <td class="review-text">No response from support team for 2 days.</td>
+                  <td>
+                    <div class="rating medium">
+                      <span class="stars">⭐⭐⭐☆☆</span>
+                      <span class="rating-text">3.0 / 5 (Google)</span>
+                    </div>
+                  </td>
+                  <td><span class="badge medium">Medium</span></td>
+                  <td>CX Team</td>
+                  <td>Respond within SLA</td>
+                </tr>
+                <tr id="noDataRow" style="display:none;">
+                  <td colspan="8" style="text-align:center; color:#64748b;">
+                    No reviews found for selected filters.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <div class="side-stack">
+          <article class="card">
+            <h2 class="section-title">Top Topics (Click to Filter Queue)</h2>
+            <ul class="list">
+              <li>
+                <button class="topic-filter active" data-filter="all" type="button">
+                  <span class="topic-head"><span class="topic-name">All Topics</span><span class="topic-count" id="topic-all-count">2,036</span></span>
+                  <span class="progress"><span class="bar" id="topic-all-bar" style="width: 100%"></span></span>
+                </button>
+              </li>
+              <li>
+                <button class="topic-filter" data-filter="quality" type="button">
+                  <span class="topic-head"><span class="topic-name">Quality Defects</span><span class="topic-meta"><span class="sentiment-pill negative">Negative</span><span class="topic-count" id="topic-quality-count">632</span></span></span>
+                  <span class="progress"><span class="bar" id="topic-quality-bar" style="width: 86%"></span></span>
+                </button>
+              </li>
+              <li>
+                <button class="topic-filter" data-filter="delivery" type="button">
+                  <span class="topic-head"><span class="topic-name">Late Delivery</span><span class="topic-meta"><span class="sentiment-pill mixed">Mixed</span><span class="topic-count" id="topic-delivery-count">489</span></span></span>
+                  <span class="progress"><span class="bar" id="topic-delivery-bar" style="width: 66%"></span></span>
+                </button>
+              </li>
+              <li>
+                <button class="topic-filter" data-filter="packaging" type="button">
+                  <span class="topic-head"><span class="topic-name">Packaging Damage</span><span class="topic-meta"><span class="sentiment-pill negative">Negative</span><span class="topic-count" id="topic-packaging-count">392</span></span></span>
+                  <span class="progress"><span class="bar" id="topic-packaging-bar" style="width: 54%"></span></span>
+                </button>
+              </li>
+              <li>
+                <button class="topic-filter" data-filter="support" type="button">
+                  <span class="topic-head"><span class="topic-name">Support Delays</span><span class="topic-meta"><span class="sentiment-pill neutral">Neutral</span><span class="topic-count" id="topic-support-count">243</span></span></span>
+                  <span class="progress"><span class="bar" id="topic-support-bar" style="width: 33%"></span></span>
+                </button>
+              </li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h2 class="section-title">Channel Mix</h2>
+            <ul class="list">
+              <li><span>Amazon</span><strong>42%</strong></li>
+              <li><span>Flipkart</span><strong>27%</strong></li>
+              <li><span>Shopify</span><strong>19%</strong></li>
+              <li><span>Google</span><strong>12%</strong></li>
+            </ul>
+            <div style="margin-top: 10px">
+              <div class="progress"><div class="bar" style="width: 42%"></div></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2 class="section-title">Weekly Action Snapshot</h2>
+            <ul class="list">
+              <li><span>Tickets Auto-Created</span><strong>184</strong></li>
+              <li><span>Replies Suggested</span><strong>1,126</strong></li>
+              <li><span>Resolved Complaints</span><strong>712</strong></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </div>
+    <script>
+      const filters = document.querySelectorAll(".topic-filter");
+      const rows = document.querySelectorAll("#reviewRows tr");
+      const rangeSelect = document.getElementById("rangeSelect");
+      const platformSelect = document.getElementById("platformSelect");
+      const reportBtn = document.getElementById("reportBtn");
+      const activeFilterText = document.getElementById("activeFilterText");
+
+      const trendTitle = document.getElementById("trendTitle");
+      const positiveLine = document.getElementById("positiveLine");
+      const negativeLine = document.getElementById("negativeLine");
+
+      const kpiTotal = document.getElementById("kpiTotal");
+      const kpiAuto = document.getElementById("kpiAuto");
+      const kpiNegative = document.getElementById("kpiNegative");
+      const kpiAvg = document.getElementById("kpiAvg");
+      const kpiSla = document.getElementById("kpiSla");
+      const kpiTotalTrend = document.getElementById("kpiTotalTrend");
+      const kpiAutoTrend = document.getElementById("kpiAutoTrend");
+      const kpiNegativeTrend = document.getElementById("kpiNegativeTrend");
+      const kpiAvgTrend = document.getElementById("kpiAvgTrend");
+      const kpiSlaTrend = document.getElementById("kpiSlaTrend");
+
+      const topicCountEls = {
+        all: document.getElementById("topic-all-count"),
+        quality: document.getElementById("topic-quality-count"),
+        delivery: document.getElementById("topic-delivery-count"),
+        packaging: document.getElementById("topic-packaging-count"),
+        support: document.getElementById("topic-support-count"),
+      };
+
+      const topicBarEls = {
+        all: document.getElementById("topic-all-bar"),
+        quality: document.getElementById("topic-quality-bar"),
+        delivery: document.getElementById("topic-delivery-bar"),
+        packaging: document.getElementById("topic-packaging-bar"),
+        support: document.getElementById("topic-support-bar"),
+      };
+
+      const rangeMetrics = {
+        "Last 7 days": {
+          total: 4280,
+          autoRate: 0.84,
+          negativeRate: 0.11,
+          avgRating: 4.2,
+          sla: 91,
+          totalTrend: "+5.2% from previous week",
+          autoTrend: "+2.1% automation efficiency",
+          negativeTrend: "+1.7% from previous week",
+          avgTrend: "Improved by +0.1",
+          slaTrend: "-1% below target (92%)",
+          trendPoints: {
+            positive: "60,68 190,64 320,59 450,56 580,52 710,48 840,44",
+            negative: "60,79 190,75 320,73 450,76 580,70 710,73 840,69",
+          },
+          topicBase: { quality: 176, delivery: 121, packaging: 98, support: 56 },
+        },
+        "Last 30 days": {
+          total: 18420,
+          autoRate: 0.867,
+          negativeRate: 0.11,
+          avgRating: 4.1,
+          sla: 89,
+          totalTrend: "+12% from last week",
+          autoTrend: "+4.6% automation efficiency",
+          negativeTrend: "+6.2% from last week",
+          avgTrend: "Improved by +0.2",
+          slaTrend: "-3% below target (92%)",
+          trendPoints: {
+            positive: "60,62 190,58 320,54 450,49 580,45 710,39 840,34",
+            negative: "60,74 190,69 320,66 450,70 580,63 710,67 840,60",
+          },
+          topicBase: { quality: 632, delivery: 489, packaging: 392, support: 243 },
+        },
+        "Last 90 days": {
+          total: 50310,
+          autoRate: 0.81,
+          negativeRate: 0.13,
+          avgRating: 3.9,
+          sla: 86,
+          totalTrend: "+18.4% from previous period",
+          autoTrend: "-1.8% automation efficiency",
+          negativeTrend: "+9.1% from previous period",
+          avgTrend: "Dropped by -0.2",
+          slaTrend: "-6% below target (92%)",
+          trendPoints: {
+            positive: "60,71 190,66 320,64 450,61 580,57 710,54 840,50",
+            negative: "60,80 190,77 320,74 450,76 580,72 710,70 840,66",
+          },
+          topicBase: { quality: 1730, delivery: 1260, packaging: 1040, support: 730 },
+        },
+      };
+
+      const platformMultiplier = {
+        all: 1,
+        amazon: 0.42,
+        flipkart: 0.27,
+        shopify: 0.19,
+        google: 0.12,
+      };
+
+      const platformRatingOffset = {
+        all: 0,
+        amazon: 0,
+        flipkart: -0.1,
+        shopify: 0.2,
+        google: -0.05,
+      };
+
+      let currentTopic = "all";
+
+      const titleCase = (text) => text.charAt(0).toUpperCase() + text.slice(1);
+      const comma = (n) => n.toLocaleString("en-IN");
+
+      const updateTopNote = () => {
+        const selectedPlatform = platformSelect.value;
+        const platformLabel = selectedPlatform === "all" ? "all platforms" : titleCase(selectedPlatform);
+        const topicLabel = currentTopic === "all" ? "all topics" : currentTopic;
+        activeFilterText.textContent = `Showing ${topicLabel} across ${platformLabel} for ${rangeSelect.value}.`;
+      };
+
+      const updateKpisAndChart = () => {
+        const rangeData = rangeMetrics[rangeSelect.value];
+        const multiplier = platformMultiplier[platformSelect.value];
+        const total = Math.round(rangeData.total * multiplier);
+        const auto = Math.round(total * rangeData.autoRate);
+        const negative = Math.round(total * rangeData.negativeRate);
+        const avgRating = Math.max(1, Math.min(5, rangeData.avgRating + platformRatingOffset[platformSelect.value]));
+
+        kpiTotal.textContent = comma(total);
+        kpiAuto.textContent = comma(auto);
+        kpiNegative.textContent = comma(negative);
+        kpiAvg.textContent = avgRating.toFixed(1);
+        kpiSla.textContent = `${Math.max(75, Math.round(rangeData.sla + platformRatingOffset[platformSelect.value] * 10))}%`;
+
+        kpiTotalTrend.textContent = rangeData.totalTrend;
+        kpiAutoTrend.textContent = rangeData.autoTrend;
+        kpiNegativeTrend.textContent = rangeData.negativeTrend;
+        kpiAvgTrend.textContent = rangeData.avgTrend;
+        kpiSlaTrend.textContent = rangeData.slaTrend;
+
+        trendTitle.textContent = `Sentiment Over ${rangeSelect.value.replace("Last ", "Last ")}`;
+        positiveLine.setAttribute("points", rangeData.trendPoints.positive);
+        negativeLine.setAttribute("points", rangeData.trendPoints.negative);
+      };
+
+      const updateTopicPanel = () => {
+        const rangeData = rangeMetrics[rangeSelect.value];
+        const multiplier = platformMultiplier[platformSelect.value];
+        const topicCounts = {
+          quality: Math.max(1, Math.round(rangeData.topicBase.quality * multiplier)),
+          delivery: Math.max(1, Math.round(rangeData.topicBase.delivery * multiplier)),
+          packaging: Math.max(1, Math.round(rangeData.topicBase.packaging * multiplier)),
+          support: Math.max(1, Math.round(rangeData.topicBase.support * multiplier)),
+        };
+        const total = topicCounts.quality + topicCounts.delivery + topicCounts.packaging + topicCounts.support;
+        topicCountEls.all.textContent = comma(total);
+        topicCountEls.quality.textContent = comma(topicCounts.quality);
+        topicCountEls.delivery.textContent = comma(topicCounts.delivery);
+        topicCountEls.packaging.textContent = comma(topicCounts.packaging);
+        topicCountEls.support.textContent = comma(topicCounts.support);
+
+        topicBarEls.all.style.width = "100%";
+        topicBarEls.quality.style.width = `${Math.round((topicCounts.quality / total) * 100)}%`;
+        topicBarEls.delivery.style.width = `${Math.round((topicCounts.delivery / total) * 100)}%`;
+        topicBarEls.packaging.style.width = `${Math.round((topicCounts.packaging / total) * 100)}%`;
+        topicBarEls.support.style.width = `${Math.round((topicCounts.support / total) * 100)}%`;
+      };
+
+      const applyFilters = () => {
+        const selectedPlatform = platformSelect.value;
+        const selectedRange = rangeSelect.value;
+        let visibleCount = 0;
+
+        rows.forEach((row) => {
+          const topicMatch = currentTopic === "all" || row.dataset.topic === currentTopic;
+          const platformMatch = selectedPlatform === "all" || row.dataset.platform === selectedPlatform;
+          const rangeMatch = (row.dataset.ranges || "").split(",").includes(selectedRange);
+          const show = topicMatch && platformMatch && rangeMatch;
+          row.style.display = show ? "" : "none";
+          if (show) visibleCount++;
+        });
+
+        const noDataRow = document.getElementById("noDataRow");
+        noDataRow.style.display = visibleCount === 0 ? "" : "none";
+
+        updateTopNote();
+        updateKpisAndChart();
+        updateTopicPanel();
+      };
+
+      filters.forEach((filterBtn) => {
+        filterBtn.addEventListener("click", () => {
+          currentTopic = filterBtn.dataset.filter;
+          filters.forEach((btn) => btn.classList.remove("active"));
+          filterBtn.classList.add("active");
+          applyFilters();
+        });
+      });
+
+      rangeSelect.addEventListener("change", applyFilters);
+      platformSelect.addEventListener("change", applyFilters);
+
+      reportBtn.addEventListener("click", () => {
+        const visibleRows = Array.from(rows).filter((row) => row.style.display !== "none");
+        const lines = [
+          "Filesure Executive Review Report",
+          `Time Range: ${rangeSelect.value}`,
+          `Platform Filter: ${platformSelect.value === "all" ? "All Platforms" : titleCase(platformSelect.value)}`,
+          `Topic Filter: ${currentTopic === "all" ? "All Topics" : currentTopic}`,
+          `Visible Priority Reviews: ${visibleRows.length}`,
+          "",
+        ];
+
+        visibleRows.forEach((row, index) => {
+          const cells = row.querySelectorAll("td");
+          lines.push(
+            `${index + 1}. ${cells[0].innerText.trim()} | ${cells[1].innerText.trim().replace("\n", " ")} | ${cells[2].innerText.trim()} | Priority: ${cells[5].innerText.trim()}`
+          );
+        });
+
+        const blob = new Blob([lines.join("\n")], { type: "text/plain" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "filesure-executive-report.txt";
+        link.click();
+        URL.revokeObjectURL(link.href);
+      });
+
+      applyFilters();
+    </script>
+  </body>
+</html>
